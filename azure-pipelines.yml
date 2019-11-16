@@ -19,4 +19,6 @@ steps:
     npm install -g @angular/cli
     npm install
     ng build
-  displayName: 'npm install and build'
+    ng test
+    ng lint
+  displayName: 'npm install, build, test and lint'

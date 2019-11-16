@@ -4,3 +4,5 @@
 
 [![npm version](https://badge.fury.io/js/%40golavr%2Fng-config.svg)](https://badge.fury.io/js/%40golavr%2Fng-config)
 
+## Package how to
+[ng-config](/projects/ng-config)

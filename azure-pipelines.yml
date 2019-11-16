@@ -19,6 +19,6 @@ steps:
     npm install -g @angular/cli
     npm install
     ng build
-    ng test
+    ng test --watch=false --browsers=ChromeHeadless
     ng lint
   displayName: 'npm install, build, test and lint'

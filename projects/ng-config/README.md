@@ -1,24 +1,99 @@
-# NgConfig
+# ng-config
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.2.13.
+Configuration library for Angular handling environments in continuous delivery. 
 
-## Code scaffolding
+## Why using ng-config?
+Angular comes with built-in mechanism of environment files but this mechanism requires you to build for each environment. This approach doesn't fit to modern development paradigm which advocate for `build once - deploy anywhere`.
 
-Run `ng generate component component-name --project ng-config` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project ng-config`.
-> Note: Don't forget to add `--project ng-config` or else it will be added to the default project in your `angular.json` file. 
+## Getting started
 
-## Build
+### Installation
 
-Run `ng build ng-config` to build the project. The build artifacts will be stored in the `dist/` directory.
+```
+npm install @golavr/ng-config --save
+```
 
-## Publishing
+### Create files
 
-After building your library with `ng build ng-config`, go to the dist folder `cd dist/ng-config` and run `npm publish`.
+1. Create `assets/configs` folder.
+2. Create `assets/configs/env.json` file.
+3. Create `assets/configs/config.json` file.
+4. Create `assets/configs/config.prod.json` file.
+5. Add more `assets/configs/config.$$$.json` files to support all environments.
 
-## Running unit tests
+You should have this folder structure:
+```
+- assets
+    - configs
+        - config.json
+        - config.prod.json
+        - env.json
+```
 
-Run `ng test ng-config` to execute the unit tests via [Karma](https://karma-runner.github.io).
+> Note: Library depends on the above folder and file names.
 
-## Further help
+### env.json file
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Open `assets/configs/env.json` and add this content:
+```json
+{
+  "env": "prod"
+}
+```
+In continues delivery system you should edit the `env` value to target the selected environment.
+
+> Note: you can replace `prod` with other environment `$$$` as long as you have `assets/configs/config.$$$.json` file for it.
+
+## How to use?
+
+Lets set two configuration values for demonstration purpose.
+
+Open `assets/configs/config.json` file and add:
+```json
+{
+    "baseValue": "other configurations will inherit this value",
+    "overrideValue": "base"
+}
+```
+
+Open `assets/configs/config.prod.json` file and add:
+```json
+{
+    "overrideValue": "prod"
+}
+```
+
+Create interface reflecting the configuration:
+
+```typescript
+export interface MyConfig {
+  baseValue: string;
+  overrideValue: string;
+}
+```
+
+Inject it and use it:
+
+```typescript
+import { Component } from '@angular/core';
+import { ConfigService } from 'ng-config';
+import { MyConfig } from './my-config';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  constructor(config: ConfigService) {
+    config.get<MyConfig>().subscribe(conf => console.log(conf.overrideValue));
+  }
+}
+```
+
+## How does it work?
+
+Each request will read config values during the call, so changes can be made to config files while the app is running.
+The returned config object will be composed from `config.json` and will be overridden with env config.
+In continues delivery system you need to edit `env.json` and set which env config (`config.prod.json`) will be selected at runtime.
+You can have multiple env config files like `config.integration.json` etc.

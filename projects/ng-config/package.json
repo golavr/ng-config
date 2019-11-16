@@ -1,5 +1,5 @@
 {
-  "name": "ng-config",
+  "name": "@golavr/ng-config",
   "version": "0.1.0",
   "author": {
     "name": "Golan Avraham",
@@ -23,7 +23,7 @@
     "continuous delivery",
     "settings"
   ],
-  "homepage": "https://github.com/golavr/ng-config/tree/master/packages/ng-config#readme",
+  "homepage": "https://github.com/golavr/ng-config/tree/master/projects/ng-config",
   "peerDependencies": {
     "@angular/common": ">=7.0.0",
     "@angular/core": ">=7.0.0",

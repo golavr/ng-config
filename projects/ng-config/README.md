@@ -1,6 +1,6 @@
 # ng-config
 
-Configuration library for Angular handling environments in continuous delivery. 
+Configuration library for Angular handling environments in continuous delivery systems. 
 
 ## Why using ng-config?
 Angular comes with built-in mechanism of environment files but this mechanism requires you to build for each environment. This approach doesn't fit to modern development paradigm which advocate for `build once - deploy anywhere`.

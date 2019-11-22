@@ -76,7 +76,7 @@ Inject it and use it:
 
 ```typescript
 import { Component } from '@angular/core';
-import { ConfigService } from 'ng-config';
+import { ConfigService } from '@golavr/ng-config';
 import { MyConfig } from './my-config';
 
 @Component({
